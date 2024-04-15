@@ -568,7 +568,7 @@ public class Main {
 	}
 
 	public static void main(String[] args){
-		Interpreter x = new Interpreter();
+		Main x = new Main();
 		try{
 			x.createMap(x.readFile(args[0]));
 			if(x.debugging){
