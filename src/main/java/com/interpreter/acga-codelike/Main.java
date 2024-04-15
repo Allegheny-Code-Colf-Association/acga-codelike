@@ -1,9 +1,12 @@
+package com.interpreter.codelike;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.*;
 import java.io.FileReader;
 
-public class Compiler{
+public class Main {
+
 	public String vDir = "d";
 	public String hDir = "n";
 	public int vPos = 0;
@@ -11,7 +14,7 @@ public class Compiler{
 	public String[][] map;
 	public ArrayList<Integer> stack = new ArrayList<Integer>();
 	public boolean debugging = false;
-	
+
 	public void changeDir(String dir){
 		switch(dir){
 			case "u":
@@ -50,7 +53,7 @@ public class Compiler{
 				break;
 		}
 	}
-	
+
 	public void cont(){
 		if(debugging){
 			System.out.println("Current Coords: " + (hPos+1) + "," + (vPos+1));
@@ -80,22 +83,21 @@ public class Compiler{
 		}
 		interpret();
 	}
-	
+
 	public void createMap(String str) {
 		String[] rows = str.split("#");
 		String[][] mkMap = new String[rows.length][];
-		
 		int i = 0;
 		for(String row : rows) {
 			mkMap[i++] = row.split("");
 		}
 		map = mkMap.clone();
 	}
-	
+
 	public void error(String err){
 		System.out.println("Error at (" + (hPos+1) + "," + (vPos+1) + "): " + err);
 	}
-	
+
 	public boolean hasChar(int v, int h){
 		try{
 		return !map[v][h].equals(" ");
@@ -103,7 +105,7 @@ public class Compiler{
 			return false;
 		}
 	}
-	
+
 	public void interpret(){
 		String dirEr = "Wrong direction";
 		try {
@@ -258,7 +260,7 @@ public class Compiler{
 						System.out.println("b: Printing the integer value on the top of the stack");
 					}
 					try {
-						System.out.print(stack.get(stack.size()-1));
+						System.out.println(stack.get(stack.size()-1));
 						if(debugging){
 							System.out.println("");
 						}
@@ -387,7 +389,6 @@ public class Compiler{
 					}
 					try{
 						Scanner user = new Scanner(System.in);
-						
 						int input = user.nextInt();
 						stack.add(input);
 						cont();
@@ -395,6 +396,30 @@ public class Compiler{
 						error("Input must be an integer");
 					}
 						break;
+        case "z":
+          if(debugging) {
+            System.out.println("z: copying previous value to stack");
+          }
+          try {
+            int positionValue = stack.get(stack.size() - 1);
+            int targetValue = stack.get(stack.size() - positionValue);
+            stack.add(targetValue);
+            cont();
+          } catch (ArrayIndexOutOfBoundsException e) {
+            error("Location beyond bounds of stack");
+          }
+          break;
+        case "v":
+          if(debugging) {
+            System.out.println("v: print the number of values currently on the stack");
+          }
+          try{
+            System.out.println(stack.size());
+            cont();
+          } catch (Exception e) {
+            error("No values on the stack to count");
+          }
+          break;
 				default:
 					error("Unknown character: " + map[vPos][hPos]);
 					break;
@@ -402,8 +427,8 @@ public class Compiler{
 		} catch(ArrayIndexOutOfBoundsException e) {
 			error("Tried to interpret at nonexistant coords");
 		}
-	}
-	
+  }
+
 	public void scanC(){
 		String dirEr = "Wrong direction";
 		if(hDir.equals("n") && vDir.equals("u")){
@@ -464,7 +489,7 @@ public class Compiler{
 			}
 		}
 	}
-	
+
 	public void scanCC(){
 		String dirEr = "Wrong direction";
 		if(hDir.equals("n") && vDir.equals("u")){
@@ -525,7 +550,7 @@ public class Compiler{
 			}
 		}
 	}
-	
+
 	public String readFile(String filename) throws IOException {
 		StringBuilder builder = new StringBuilder();
 		try(BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -541,9 +566,9 @@ public class Compiler{
 			return e.toString();
 		}
 	}
-	
+
 	public static void main(String[] args){
-		Compiler x = new Compiler();
+		Interpreter x = new Interpreter();
 		try{
 			x.createMap(x.readFile(args[0]));
 			if(x.debugging){
@@ -554,4 +579,5 @@ public class Compiler{
 			System.out.println("Please pass a valid filename as an argument, in this form: java Compiler <filename>");
 		}
 	}
+
 }
