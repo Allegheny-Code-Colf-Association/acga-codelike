@@ -3,6 +3,11 @@
 A port of the 2D, array-based [codelike language](https://github.com/dospunk/codelike) with added commands to expand the range of the language to complete
 code golf challenges.
 
+## Using this repository
+
+This repository uses the [Apache Maven](https://maven.apache.org/) build system. The `pom.xml` file in the root directory of the repository points
+to the `src/test/resources/main.txt` file as its starting point.
+
 ## Notes
 
 - When reading a source file, the interpreter will always start at the top left corner and will be going down.
