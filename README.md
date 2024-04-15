@@ -26,7 +26,7 @@ to the `src/test/resources/main.txt` file as its starting point.
 |`/`     |Continue down-left or up-right |
 |`+`     |Increment top value on the stack and continue |
 |`_`     |Decrement top value on the stack and continue |
-|`\>`    |If moving to the left, will continue up-left if the top value on the stack is greater than `0`, or down-left if it is less than zero |
+|`>`    |If moving to the left, will continue up-left if the top value on the stack is greater than `0`, or down-left if it is less than zero |
 |`<`     |If moving to the right, will continue up-right if the top value on the stack is greater than `0`, or down-right if it is less than zero |
 |`^`     |If moving to the down, will continue down-right if the top value on the stack is greater than `0`, or down-left if it is less than zero |
 |`*`     |Pop the top two values from the stack, multiply them, and push the result to the stack |
