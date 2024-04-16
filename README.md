@@ -23,7 +23,7 @@ to the `src/test/resources/main.txt` file as its starting point.
 |Command |Functionality |
 |:-------|:-------------|
 |`-`     |Continue horizontally |
-|`|`     |Continue vertically   |
+|`\|`     |Continue vertically   |
 |`\`     |Continue up-left or down-right |
 |`/`     |Continue down-left or up-right |
 |`+`     |Increment top value on the stack and continue |
